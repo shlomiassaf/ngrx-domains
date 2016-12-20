@@ -16,7 +16,7 @@ Create a dependency free global redux role objects, as you go, per module:
   _Observables for a specific property on the state, or a transformation of it_
   
 Access redux role objects from a single import:  
-```
+```ts
 import { State } from 'ngrx-domains/State'
 import { Actions } from 'ngrx-domains/Actions'
 import { Root, Queries } from 'ngrx-domains/Queries'
@@ -190,8 +190,8 @@ it has no footprint on the compiled code emitted by TypeScript.
 
 
 ## Example
-In this example were create a domain call **simpleUser**, we will separate redux roles by file but the whole **simpleUser** feature will be in one module.  
-We have model, 1 action (changing the name) and a query to get the logged in state.
+In this example we're creating a domain called **simpleUser**, we will separate redux roles by file but the whole **simpleUser** feature will be in one module.  
+We have a model, 1 action (changing the name) and a query to get the logged in state.
 
 ```
 ├── project-root/
@@ -206,8 +206,9 @@ We have model, 1 action (changing the name) and a query to get the logged in sta
 
 This structure is just for demonstration, you can follow any convention you like.
 
->File: Model.ts
-```
+> File: Model.ts
+
+```ts
 import { register } from 'ngrx-domains/Model';
 
 namespace UserModels {
@@ -228,7 +229,8 @@ declare module 'ngrx-domains/Model' {
 ```
 
 >File: Actions.ts
-```
+
+```ts
 import { Action } from '@ngrx/store';
 import { Actions } from 'ngrx-domains/Actions';
 
@@ -254,7 +256,8 @@ declare module 'ngrx-domains/Actions' {
 ```
 
 >File: State.ts
-```
+
+```ts
 import { State } from 'ngrx-domains/State';
 import { Model } from 'ngrx-domains/Model';
 
@@ -278,7 +281,8 @@ declare module 'ngrx-domains/State' {
 ```
 
 >File: Queries.ts
-```
+
+```ts
 import { Observable } from 'rxjs/Observable';
 
 import { Query } from 'ngrx-domains';
@@ -315,7 +319,8 @@ declare module 'ngrx-domains/Queries' {
 ```
 
 >File: reducer.ts
-```
+
+```ts
 import { Action } from '@ngrx/store';
 import { State, SimpleUserState } from 'ngrx-domains/State';
 import { UserActions } from './Actions';
@@ -339,7 +344,8 @@ export function reducer(state: SimpleUserState, action: Action): SimpleUserState
 ```
 
 >File: index.ts
-```
+
+```ts
 import { createTable } from 'ngrx-domains';
 import './Model';
 import './State';
