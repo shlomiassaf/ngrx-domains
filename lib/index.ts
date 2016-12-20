@@ -4,5 +4,5 @@ import 'ngrx-domains/Actions';
 import 'ngrx-domains/Queries';
 
 export { Type } from './utils';
-export { createTable, createReducer, tableCreated$ } from './core';
+export { createDomain, createReducer, tableCreated$ } from './core';
 export { Query } from './Queries';

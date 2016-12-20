@@ -11,9 +11,9 @@ const tables = new Map<string, boolean>();
 const reducers: {[key: string]: ActionReducer<any> } = {};
 const tableCreatedSubject$ = new ReplaySubject<string>(1);
 
-export function createTable(name: string, reducer: ActionReducer<any>): void {
+export function createDomain(name: string, reducer: ActionReducer<any>): void {
   if (tables.has(name)) {
-    throw new Error(`Table name "${name}" already exists."`);
+    throw new Error(`Domain name "${name}" already exists."`);
   }
 
   tables.set(name, true);

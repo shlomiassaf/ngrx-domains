@@ -376,4 +376,4 @@ The demo apps should consume a compiled version of **lib**, this is why there is
 **lib** compiles to `src/ngrx-domains`, `src` is a module directory on the demo app so any `import {} from 'ngrx-domains'` will work.
  
 ## TODO / DESIGN / THOUGHTS:
-  - Use metadata via decorators in addition to `createTable`?
+  - Use metadata via decorators in addition to `createDomain`?

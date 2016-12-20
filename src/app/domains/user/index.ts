@@ -1,8 +1,8 @@
-import { createTable } from 'ngrx-domains';
+import { createDomain } from 'ngrx-domains';
 import './Model';
 import './State';
 import './Actions';
 
 import { reducer } from './reducer';
 
-createTable('user', reducer);
+createDomain('user', reducer);
