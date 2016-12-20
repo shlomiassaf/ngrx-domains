@@ -1,9 +1,11 @@
 # ngrx-domains
 
-**Get your state together** - A Global registry for your **NGRX** logic
+**Get your state together** - A plugin oriented Global registry for your **NGRX** logic
 
 ## TL;DR
 Use a global registry to create encapsulated redux logic modules (domains).  
+
+Each domain is a plugin, no hard dependencies.
 
 Supports lazy domains (lazy injection of a reducer)
 
@@ -168,6 +170,8 @@ Each **Domain** is a redux logic unit that is responsible for:
   Since importing domain objects is easy they can live outside the domain.
   That's a choice of preference, `@Effect` has domain logic so it should be inside but its also an `@Injectable`...
   
+A Domain is like a plugin, it attaches itself to the registry. The registry does not know about the plugin/domain.
+
 Going back to the **Database** _metaphor_ with a tint of SQL:  
 A domain is a managed table that comes with:  
   - Typed table schema (state)
@@ -371,3 +375,5 @@ The demo apps should consume a compiled version of **lib**, this is why there is
 
 **lib** compiles to `src/ngrx-domains`, `src` is a module directory on the demo app so any `import {} from 'ngrx-domains'` will work.
  
+## TODO / DESIGN / THOUGHTS:
+  - Use metadata via decorators in addition to `createTable`?
