@@ -1,4 +1,24 @@
 {
-  "name": "application-name",
-  "version": "0.0.1"
+  "name": "ngrx-domains",
+  "version": "1.0.0-alpha.0",
+  "description": "A Global, Type friendly, registry for your **NGRX** logic",
+  "author": "Shlomi Assaf <shlomiasaf@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shlomiassaf/ngrx-domains.git"
+  },
+  "keywords": [
+    "RxJS",
+    "Angular2",
+    "Redux",
+    "ngrx"
+  ],
+  "peerDependencies": {
+    "@ngrx/store": "^2.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/shlomiassaf/ngrx-domains/issues"
+  },
+  "homepage": "https://github.com/shlomiassaf/ngrx-domains#readme"
 }

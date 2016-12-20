@@ -5,8 +5,8 @@
     "lib": ["es5", "dom"],
     "noImplicitAny": false,
     "sourceMap": true,
-    "declaration":false,
-    "outDir": "./build",
+    "declaration": true,
+    "outDir": "./src/ngrx-domains",
     "noEmitOnError": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -15,12 +15,10 @@
     "noLib": false,
     "allowSyntheticDefaultImports": true
   },
+  "include": [
+    "lib/**/*"
+  ],
   "exclude": [
-    "node_modules",
-    "build",
-    "dll",
-    "e2e",
-    "test-config",
-    "dist"
+    "node_modules"
   ]
 }

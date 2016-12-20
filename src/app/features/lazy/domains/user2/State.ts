@@ -1,21 +1,20 @@
 import { State } from 'ngrx-domains/State';
-import { Model } from 'ngrx-domains/Model';
 
-State.user = {
-  user: { name: 'Angular User' },
+State.user2 = {
+  user: { name: 'Angular User2' },
   loading: false,
   loaded: true,
 };
 
 declare module 'ngrx-domains/State' {
-  export interface UserSchema {
-    user: Model.User;
+  export interface UserSchema2 {
+    user: any;
     loading: boolean;
     loaded: boolean;
   }
 
   interface State {
-    user: UserSchema
+    user2: UserSchema2
   }
 }
 

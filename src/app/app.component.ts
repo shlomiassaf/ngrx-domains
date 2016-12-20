@@ -1,8 +1,15 @@
+import 'rxjs/add/operator/let';
+import { Observable } from 'rxjs/Observable';
+
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { views } from './app-nav-views';
 import { MOBILE } from './services/constants';
+import { Store } from "@ngrx/store";
+import {State} from 'ngrx-domains/State';
+import {Actions} from 'ngrx-domains/Actions';
+import {Queries} from 'ngrx-domains/Queries';
 
 @Component({
   selector: 'my-app',
@@ -14,13 +21,13 @@ export class AppComponent {
     ['monitor', 'both'].includes(STORE_DEV_TOOLS) // set in constants.js file in project root
   );
   mobile = MOBILE;
-  sideNavMode = MOBILE ? 'over' : 'side';
   views = views;
+  sidenavMode$: Observable<'side' | 'over'>;
 
-  constructor(
-    public route: ActivatedRoute,
-    public router: Router
-  ) { }
+  constructor(public route: ActivatedRoute, public router: Router, store: Store<any>) {
+    this.sidenavMode$ = store.let(Queries.nav.showSidenav)
+      .map( show => show ? 'side' : 'over');
+  }
 
   activateEvent(event) {
     if (ENV === 'development') {

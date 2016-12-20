@@ -1,46 +1,23 @@
-import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Actions } from 'ngrx-domains/Actions';
-import { Model } from 'ngrx-domains/Model';
 
 export class UserActions {
-  static EDIT_USER = '[User] Edit User';
-  editUser(user: Model.User): Action {
+  static CHANGE_NAME = '[SimpleUser] Change User Name';
+  changeName(name: string): Action {
     return {
-      type: UserActions.EDIT_USER,
-      payload: user
-    };
-  }
-
-  static LOGOUT = '[User] Logout';
-  logout(): Action {
-    return {
-      type: UserActions.LOGOUT
-    };
-  }
-
-  static LOGOUT_FAIL = '[User] Logout Fail';
-  logoutFail(err: Error): Action {
-    return {
-      type: UserActions.LOGOUT_FAIL,
-      payload: err
-    };
-  }
-
-  static LOGOUT_SUCCESS = '[User] Logout Success';
-  logoutSuccess(res: Response): Action {
-    return {
-      type: UserActions.LOGOUT_SUCCESS,
-      payload: res
+      type: UserActions.CHANGE_NAME,
+      payload: name
     };
   }
 }
 
-Actions.user = new UserActions();
+// this will fail type check if the module declaration below is not set
+Actions.simpleUser = new UserActions();
 
+// adding type information
 declare module 'ngrx-domains/Actions' {
   interface Actions {
-    user: UserActions;
+    simpleUser: UserActions;
   }
 }
 

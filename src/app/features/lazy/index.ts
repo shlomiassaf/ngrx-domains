@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { routes } from './lazy.routing';
 
+import './domains/user2';
 import { LazyComponent } from './lazy.component';
 
 

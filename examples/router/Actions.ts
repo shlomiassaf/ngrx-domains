@@ -1,32 +1,36 @@
 import * as routerStore from '@ngrx/router-store';
 import { Actions } from 'ngrx-domains/Actions';
 
-
 export const ActionTokens = routerStore.routerActions;
 
-export class RouterActions {
-  readonly GO: string = routerStore.routerActions.GO;
-  readonly REPLACE: string = routerStore.routerActions.REPLACE;
-  readonly SEARCH: string = routerStore.routerActions.SEARCH;
-  readonly SHOW: string = routerStore.routerActions.SHOW;
-  readonly BACK: string = routerStore.routerActions.BACK;
-  readonly FORWARD: string = routerStore.routerActions.FORWARD;
-  readonly UPDATE_LOCATION: string = routerStore.routerActions.UPDATE_LOCATION;
+export interface RouterActions {
+  readonly GO: string;
+  readonly REPLACE: string;
+  readonly SEARCH: string;
+  readonly SHOW: string;
+  readonly BACK: string;
+  readonly FORWARD: string;
+  readonly UPDATE_LOCATION: string;
 
-  readonly go = routerStore.go;
-  readonly replace = routerStore.replace;
-  readonly search = routerStore.search;
-  readonly show = routerStore.show;
-  readonly back = routerStore.back;
-  readonly forward = routerStore.forward;
+  readonly go: typeof routerStore.go;
+  readonly replace: typeof routerStore.replace;
+  readonly search: typeof routerStore.search;
+  readonly show: typeof routerStore.show;
+  readonly back: typeof routerStore.back;
+  readonly forward: typeof routerStore.forward;
 }
-Actions.router = new RouterActions();
+
+Actions.router = Object.assign({
+  go: routerStore.go,
+  replace: routerStore.replace,
+  search: routerStore.search,
+  show: routerStore.show,
+  back: routerStore.back,
+  forward: routerStore.forward
+}, routerStore.routerActions);
 
 declare module 'ngrx-domains/Actions' {
   interface Actions {
     router: RouterActions;
   }
 }
-
-
-

@@ -3,10 +3,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../reducers';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../user/user.actions';
-import { User } from '../user/user.model';
+import { State } from 'ngrx-domains/State'
+import { Actions } from 'ngrx-domains/Actions'
+import { Model } from 'ngrx-domains/Model'
+
 
 @Component({
   selector: 'my-dashboard',
@@ -18,16 +19,16 @@ export class DashboardComponent implements OnDestroy, OnInit {
   destroyed$: Subject<any> = new Subject<any>();
   form: FormGroup;
   nameLabel = 'Enter your name';
-  user: User;
-  user$: Observable<User>;
-  constructor(
-    fb: FormBuilder,
-    private store: Store<AppState>,
-    private userActions: UserActions,
-  ) {
+  user: Model.User;
+  user$: Observable<Model.User>;
+  constructor(fb: FormBuilder, private store: Store<State>) {
     this.form = fb.group({
       name: ''
     });
+
+
+    let X: Model.ConcreteUser = new Model.ConcreteUser();
+    console.log(Model.ConcreteUser, X);
     this.user$ = this.store.select(state => state.user.user);
     this.user$.takeUntil(this.destroyed$)
       .subscribe(user => { this.user = user; });
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   clearName() {
-    this.store.dispatch(this.userActions.editUser(
+    this.store.dispatch(Actions.user.editUser(
       Object.assign({}, this.user, { name: '' }
       )));
 
@@ -46,11 +47,11 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   logout() {
-    this.store.dispatch(this.userActions.logout());
+    this.store.dispatch(Actions.user.logout());
   }
 
   submitState() {
-    this.store.dispatch(this.userActions.editUser(
+    this.store.dispatch(Actions.user.editUser(
       Object.assign({}, this.user, { name: this.form.get('name').value }
       )));
   }

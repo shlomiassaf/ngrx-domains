@@ -1,4 +1,4 @@
-import { Type } from './schema';
+import { Type } from './utils';
 
 
 export namespace Model {

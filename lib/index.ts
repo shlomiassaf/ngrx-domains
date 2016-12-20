@@ -1,6 +1,8 @@
-import 'ngrx-tables/Model';
-import 'ngrx-tables/State';
-import 'ngrx-tables/Actions';
-export * from './schema';
-export { createTable, createReducer } from './core';
-export * from './table';
+import 'ngrx-domains/Model';
+import 'ngrx-domains/State';
+import 'ngrx-domains/Actions';
+import 'ngrx-domains/Queries';
+
+export { Type } from './utils';
+export { createTable, createReducer, tableCreated$ } from './core';
+export { Query } from './Queries';

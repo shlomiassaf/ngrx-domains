@@ -1,18 +1,26 @@
 {
-  "name": "angular-webpack2-starter",
-  "version": "1.14.0",
-  "description": "Angular and Webpack 2 Starter",
-  "author": "Qdouble <qdouble@gmail.com>",
+  "name": "ngrx-domains",
+  "version": "1.0.0-alpha.0",
+  "description": "A Global, Type friendly, registry for your **NGRX** logic",
+  "author": "Shlomi Assaf <shlomiasaf@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qdouble/angular-webpack2-starter.git"
+    "url": "git+https://github.com/shlomiassaf/ngrx-domains.git"
   },
+  "keywords": [
+    "RxJS",
+    "Angular2",
+    "Redux",
+    "ngrx"
+  ],
   "scripts": {
     "postinstall": "npm run sass && npm run build:dll",
     "rimraf": "rimraf",
     "webdev": "webpack-dev-server",
     "webdev:hmr": "npm run webdev -- --inline --hot",
     "webpack": "webpack",
+    "tsc": "tsc",
     "ngc": "./node_modules/.bin/ngc -p tsconfig.aot.json",
     "ngc:universal": "./node_modules/.bin/ngc -p tsconfig.aot.universal.json",
     "webdriver-manager": "webdriver-manager",
@@ -55,7 +63,7 @@
     "prodserver": "node prodserver",
     "sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
     "sass:watch": "node-sass -w src -o src --include-path node_modules --output-style compressed -q",
-    "start": "npm run server:dev",
+    "start": "npm run server:lib",
     "start:hmr": "npm run server:hmr",
     "serve80": "sudo PORT=80 node prodserver",
     "server:dev": "npm-run-all -p -r webdev sass:watch",
@@ -63,6 +71,7 @@
     "server:prod": "npm-run-all -p -r watch:prod prodserver",
     "server:prod80": "npm-run-all -p -r serve80 watch:prod",
     "server:universal": "nodemon dist/server/index.js",
+    "server:lib": "npm-run-all -p -r \"tsc -- --watch --project tsconfig.lib.json\" \"server:dev\"",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
     "build": "npm run build:prod",
     "build:aot": "npm run build:aot:prod",
@@ -85,6 +94,7 @@
     "watch:dev": "npm-run-all -p -r \"build:dev -- --watch\" sass:watch",
     "watch:prod": "npm-run-all -p -r \"build:prod -- --watch\" sass:watch",
     "watch:universal": "npm-run-all -p -r \"build:universal -- --watch\" sass:watch",
+    "watch:lib": "npm-run-all -p -r \"tsc -- --watch --project tsconfig.lib.json\" \"watch:dev\"",
     "universal": "npm run build:universal && npm run server:universal",
     "universal:aot": "npm run compile:universal && npm run server:universal",
     "universal:watch": "npm run build:universal && npm-run-all -p -r watch:universal server:universal"
@@ -104,10 +114,10 @@
     "@angular/tsc-wrapped": "0.3.0",
     "@angularclass/hmr": "1.2.2",
     "@angularclass/hmr-loader": "3.0.2",
-    "@ngrx/core": "1.2.0",
+    "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "2.0.0",
     "@ngrx/router-store": "1.2.5",
-    "@ngrx/store": "2.2.1",
+    "@ngrx/store": "^2.2.1",
     "@ngrx/store-devtools": "3.2.2",
     "@ngrx/store-log-monitor": "3.0.2",
     "angular2-express-engine": "2.1.0-rc.1",
@@ -187,9 +197,8 @@
     "webpack-dev-server": "2.1.0-beta.11",
     "webpack-merge": "~1.1.1"
   },
-  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/qdouble/angular-webpack2-starter/issues"
+    "url": "https://github.com/shlomiassaf/ngrx-domains/issues"
   },
-  "homepage": "https://github.com/qdouble/angular-webpack2-starter#readme"
+  "homepage": "https://github.com/shlomiassaf/ngrx-domains#readme"
 }

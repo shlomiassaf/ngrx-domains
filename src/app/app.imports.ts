@@ -1,5 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, PreloadAllModules } from '@angular/router';
+import { RouterModule, PreloadAllModules, NoPreloading } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -9,9 +9,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { routes } from './app.routing';
-import { rootReducer } from './reducers';
+
+import { rootReducer } from './ngrx-init';
+
 import { StoreDevToolsModule } from './features/store-devtools.module';
-import { UserEffects } from './user/user.effects';
+import { UserEffects } from './domains/user/user.effects';
 
 const STORE_DEV_TOOLS_IMPORTS = [];
 if (ENV === 'development' && !AOT &&
@@ -29,7 +31,7 @@ export const APP_IMPORTS = [
   EffectsModule.run(UserEffects),
   MaterialModule.forRoot(),
   ReactiveFormsModule,
-  RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading }),
   RouterStoreModule.connectRouter(),
   StoreModule.provideStore(rootReducer),
   STORE_DEV_TOOLS_IMPORTS,

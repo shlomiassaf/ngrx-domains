@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -14,6 +15,7 @@
     ]
   },
   "exclude": [
+    "lib",
     "node_modules",
     "src/compiled"
   ],

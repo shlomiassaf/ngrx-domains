@@ -356,7 +356,8 @@ const serverConfig: WebpackConfig = {
 
 const defaultConfig = {
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.js', '.json'],
+    modules: ['node_modules', 'src']
   }
 };
 

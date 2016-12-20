@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { State, UserSchema } from 'ngrx-domains/State';
-import {  UserActions } from './Actions';
+import { UserActions } from './Actions';
 
 export function reducer(state: UserSchema, action: Action): UserSchema {
   if (!state) state = State.user;

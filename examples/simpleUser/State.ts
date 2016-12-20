@@ -1,21 +1,21 @@
 import { State } from 'ngrx-domains/State';
 import { Model } from 'ngrx-domains/Model';
 
-State.user = {
-  user: { name: 'Angular User' },
-  loading: false,
-  loaded: true,
+// This is our initial state
+State.simpleUser = {
+  user: new Model.SimpleUser('John'),
+  loggedIn: false
 };
 
+// type information
 declare module 'ngrx-domains/State' {
-  export interface UserSchema {
-    user: Model.User;
-    loading: boolean;
-    loaded: boolean;
+  export interface SimpleUserState {
+    user: Model.SimpleUser;
+    loggedIn: boolean;
   }
 
   interface State {
-    user: UserSchema
+    simpleUser: SimpleUserState
   }
 }
 
