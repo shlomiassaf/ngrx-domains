@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "declaration":false,
+    "outDir": "./build",
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "noLib": false,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "dll",
+    "e2e",
+    "test-config",
+    "dist"
+  ]
+}
