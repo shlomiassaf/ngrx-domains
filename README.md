@@ -260,10 +260,11 @@ declare module 'ngrx-domains' {
 
 ```ts
 import { State, Model } from 'ngrx-domains';
+const { SimpleUser } = Model;
 
 // This is our initial state
 State.simpleUser = {
-  user: new Model.SimpleUser('John'),
+  user: new SimpleUser('John'),
   loggedIn: false
 };
 
@@ -323,13 +324,15 @@ declare module 'ngrx-domains' {
 import { Action } from '@ngrx/store';
 import { State, SimpleUserState, Model, UserActions } from 'ngrx-domains';
 
+const { SimpleUser } = Model;
+
 export function reducer(state: SimpleUserState, action: Action): SimpleUserState {
   if (!state) state = State.simpleUser; // State.simpleUser is typed
 
   switch (action.type) {
     case UserActions.CHANGE_NAME: {
       return Object.assign({}, state, {
-        user: new Model.SimpleUser(action.payload)
+        user: new SimpleUser(action.payload)
       });
     }
 
