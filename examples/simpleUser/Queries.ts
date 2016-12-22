@@ -1,8 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 
-import { Query } from 'ngrx-domains';
-import { State, SimpleUserState } from 'ngrx-domains/State';
-import { Queries, Root, setQueries } from 'ngrx-domains/Queries';
+import { State, SimpleUserState, Query, Queries, Root, setQueries } from 'ngrx-domains';
 
 export interface SimpleQueries {
   // IN: State.simpleUser -> OUT: State.simpleUser.loggedIn
@@ -20,7 +18,7 @@ setQueries('simpleUser', {
 });
 
 
-declare module 'ngrx-domains/Queries' {
+declare module 'ngrx-domains' {
   // set root query (runtime query auto-generated)
   // so we can store.let(Root.simpleUser);
   interface Root {

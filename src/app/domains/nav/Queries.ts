@@ -1,9 +1,7 @@
 import '@ngrx/core/add/operator/select';
 import { Observable } from 'rxjs/Observable';
 
-import { Query } from 'ngrx-domains';
-import { State, NavSchema } from 'ngrx-domains/State';
-import { Queries, Root, setQueries } from 'ngrx-domains/Queries';
+import { State, NavSchema, Query, Queries, Root, setQueries } from 'ngrx-domains';
 
 /*
  The root query is auto-generated, unless specified.
@@ -23,7 +21,7 @@ setQueries('nav', {
 });
 
 
-declare module 'ngrx-domains/Queries' {
+declare module 'ngrx-domains' {
   interface Root {
     nav: Query<State, NavSchema>;
   }

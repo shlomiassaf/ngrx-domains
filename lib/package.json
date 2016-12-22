@@ -1,6 +1,6 @@
 {
   "name": "ngrx-domains",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "A Global, Type friendly, registry for your **NGRX** logic",
   "author": "Shlomi Assaf <shlomiasaf@gmail.com>",
   "license": "MIT",

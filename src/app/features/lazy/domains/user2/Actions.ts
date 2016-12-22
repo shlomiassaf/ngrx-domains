@@ -1,6 +1,6 @@
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
-import { Actions } from 'ngrx-domains/Actions';
+import { Actions } from 'ngrx-domains';
 
 export class UserActions2 {
   static EDIT_USER = '[User] Edit User2';
@@ -37,7 +37,7 @@ export class UserActions2 {
 
 Actions.user2 = new UserActions2();
 
-declare module 'ngrx-domains/Actions' {
+declare module 'ngrx-domains' {
   interface Actions {
     user2: UserActions2;
   }

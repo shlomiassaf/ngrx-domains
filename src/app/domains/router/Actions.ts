@@ -1,5 +1,5 @@
 import * as routerStore from '@ngrx/router-store';
-import { Actions } from 'ngrx-domains/Actions';
+import { Actions } from 'ngrx-domains';
 
 export const ActionTokens = routerStore.routerActions;
 
@@ -29,7 +29,7 @@ Actions.router = Object.assign({
   forward: routerStore.forward
 }, routerStore.routerActions);
 
-declare module 'ngrx-domains/Actions' {
+declare module 'ngrx-domains' {
   interface Actions {
     router: RouterActions;
   }

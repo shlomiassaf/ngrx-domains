@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { State, NavSchema } from 'ngrx-domains/State';
-import { Actions } from 'ngrx-domains/Actions';
+import { State, NavSchema, Actions } from 'ngrx-domains';
 
 import { MOBILE } from '../../services/constants';
 

@@ -20,7 +20,7 @@ import { APP_IMPORTS } from './app.imports';
 import { APP_PROVIDERS } from './app.providers';
 
 import { AppComponent } from './app.component';
-import { State } from 'ngrx-domains/State';
+import { State } from 'ngrx-domains';
 
 @NgModule({
   declarations: [

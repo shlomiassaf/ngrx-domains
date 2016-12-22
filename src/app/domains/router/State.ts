@@ -1,7 +1,7 @@
-import { State } from 'ngrx-domains/State';
+import { State } from 'ngrx-domains';
 import { RouterState } from '@ngrx/router-store';
 
-declare module 'ngrx-domains/State' {
+declare module 'ngrx-domains' {
   interface State {
     router: RouterState;
   }

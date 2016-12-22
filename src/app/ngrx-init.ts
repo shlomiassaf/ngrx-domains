@@ -2,8 +2,7 @@ import { ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 
-import { createReducer, tableCreated$ } from 'ngrx-domains';
-import { State } from 'ngrx-domains/State';
+import { createReducer, tableCreated$, State } from 'ngrx-domains';
 import './domains/user';
 import './domains/nav';
 import './domains/router';

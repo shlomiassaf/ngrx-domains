@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Actions } from 'ngrx-domains/Actions';
+import { Actions } from 'ngrx-domains';
 
 export class UserActions {
   static CHANGE_NAME = '[SimpleUser] Change User Name';
@@ -15,7 +15,7 @@ export class UserActions {
 Actions.simpleUser = new UserActions();
 
 // adding type information
-declare module 'ngrx-domains/Actions' {
+declare module 'ngrx-domains' {
   interface Actions {
     simpleUser: UserActions;
   }

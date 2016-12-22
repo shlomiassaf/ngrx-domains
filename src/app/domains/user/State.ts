@@ -1,5 +1,4 @@
-import { State } from 'ngrx-domains/State';
-import { Model } from 'ngrx-domains/Model';
+import { State, Model } from 'ngrx-domains';
 
 State.user = {
   user: { name: 'Angular User' },
@@ -7,7 +6,7 @@ State.user = {
   loaded: true,
 };
 
-declare module 'ngrx-domains/State' {
+declare module 'ngrx-domains' {
   export interface UserSchema {
     user: Model.User;
     loading: boolean;

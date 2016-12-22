@@ -7,9 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { views } from './app-nav-views';
 import { MOBILE } from './services/constants';
 import { Store } from "@ngrx/store";
-import {State} from 'ngrx-domains/State';
-import {Actions} from 'ngrx-domains/Actions';
-import {Queries} from 'ngrx-domains/Queries';
+import { State, Actions, Queries } from 'ngrx-domains';
 
 @Component({
   selector: 'my-app',

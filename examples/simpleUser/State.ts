@@ -1,5 +1,4 @@
-import { State } from 'ngrx-domains/State';
-import { Model } from 'ngrx-domains/Model';
+import { State, Model } from 'ngrx-domains';
 
 // This is our initial state
 State.simpleUser = {
@@ -8,7 +7,7 @@ State.simpleUser = {
 };
 
 // type information
-declare module 'ngrx-domains/State' {
+declare module 'ngrx-domains' {
   export interface SimpleUserState {
     user: Model.SimpleUser;
     loggedIn: boolean;

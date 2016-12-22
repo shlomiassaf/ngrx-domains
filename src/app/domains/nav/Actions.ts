@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Actions } from 'ngrx-domains/Actions';
+import { Actions } from 'ngrx-domains';
 
 export const ActionTokens = {
   TOGGLE_SIDENAV: '[NavLayout] Toggle Sidenav',
@@ -17,7 +17,7 @@ Actions.nav = {
   ToggleSidenavAction
 };
 
-declare module 'ngrx-domains/Actions' {
+declare module 'ngrx-domains' {
   interface Actions {
     nav: {
       ToggleSidenavAction: typeof ToggleSidenavAction

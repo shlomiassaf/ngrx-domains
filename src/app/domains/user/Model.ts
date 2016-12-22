@@ -1,4 +1,4 @@
-import { register } from 'ngrx-domains/Model';
+import { register } from 'ngrx-domains';
 
 namespace UserModels {
   export interface User {
@@ -17,7 +17,7 @@ namespace UserModels {
 
 register(UserModels.ConcreteUser, 'ConcreteUser');
 
-declare module 'ngrx-domains/Model' {
+declare module 'ngrx-domains' {
   export namespace Model {
     export type User = UserModels.User;
 

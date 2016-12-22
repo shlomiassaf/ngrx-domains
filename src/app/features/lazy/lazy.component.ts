@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 
 import { Store } from '@ngrx/store';
-import { State } from 'ngrx-domains/State'
+import { State } from 'ngrx-domains'
 
 
 @Component({

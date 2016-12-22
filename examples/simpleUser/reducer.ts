@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-import { State, SimpleUserState } from 'ngrx-domains/State';
+import { State, SimpleUserState, Model } from 'ngrx-domains';
 import { UserActions } from './Actions';
-import { Model } from 'ngrx-domains/Model';
 
 export function reducer(state: SimpleUserState, action: Action): SimpleUserState {
   if (!state) state = State.simpleUser; // State.simpleUser is typed

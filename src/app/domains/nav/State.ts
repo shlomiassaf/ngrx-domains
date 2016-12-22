@@ -1,4 +1,4 @@
-import { State } from 'ngrx-domains/State';
+import { State } from 'ngrx-domains';
 import { MOBILE } from '../../services/constants';
 
 State.nav = {
@@ -6,7 +6,7 @@ State.nav = {
   sidenavSize: null
 };
 
-declare module 'ngrx-domains/State' {
+declare module 'ngrx-domains' {
   export interface NavSchema {
     toggleState: boolean;
     sidenavSize: number;

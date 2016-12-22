@@ -19,10 +19,7 @@ Create a dependency free global redux role objects, as you go, per module:
   
 Access redux role objects from a single import:  
 ```ts
-import { State } from 'ngrx-domains/State'
-import { Actions } from 'ngrx-domains/Actions'
-import { Root, Queries } from 'ngrx-domains/Queries'
-import { Model } from 'ngrx-domains/Model'
+import { Actions, State, Model, Root, Queries } from 'ngrx-domains/State'
 
 @Component({
   selector: 'my-cmp'
@@ -54,7 +51,7 @@ export class MyCmpComponent {
  
 ## Alpha release
 This library is in an early stage of development, expect some changes.
-> The `ngrx-domains/Actions` and `Actions` objects will probably change since `@ngrx/effects` has an `Actions` type.
+> The `Actions` objects will probably change since `@ngrx/effects` has an `Actions` type.
  
 ## Background
 Redux is cool, super cool, but its hard to manage. 
@@ -213,7 +210,7 @@ This structure is just for demonstration, you can follow any convention you like
 > File: Model.ts
 
 ```ts
-import { register } from 'ngrx-domains/Model';
+import { register } from 'ngrx-domains';
 
 namespace UserModels {
   export class SimpleUser {
@@ -224,7 +221,7 @@ namespace UserModels {
 
 register(UserModels.SimpleUser);
 
-declare module 'ngrx-domains/Model' {
+declare module 'ngrx-domains' {
   export namespace Model {
     export const SimpleUser: typeof UserModels.SimpleUser;
     export type SimpleUser = UserModels.SimpleUser;
@@ -236,7 +233,7 @@ declare module 'ngrx-domains/Model' {
 
 ```ts
 import { Action } from '@ngrx/store';
-import { Actions } from 'ngrx-domains/Actions';
+import { Actions } from 'ngrx-domains';
 
 export class UserActions {
   static CHANGE_NAME = '[SimpleUser] Change User Name';
@@ -252,7 +249,7 @@ export class UserActions {
 Actions.simpleUser = new UserActions();
 
 // adding type information
-declare module 'ngrx-domains/Actions' {
+declare module 'ngrx-domains' {
   interface Actions {
     simpleUser: UserActions;
   }
@@ -262,8 +259,7 @@ declare module 'ngrx-domains/Actions' {
 >File: State.ts
 
 ```ts
-import { State } from 'ngrx-domains/State';
-import { Model } from 'ngrx-domains/Model';
+import { State, Model } from 'ngrx-domains';
 
 // This is our initial state
 State.simpleUser = {
@@ -272,7 +268,7 @@ State.simpleUser = {
 };
 
 // type information
-declare module 'ngrx-domains/State' {
+declare module 'ngrx-domains' {
   export interface SimpleUserState {
     user: Model.SimpleUser;
     loggedIn: boolean;
@@ -290,8 +286,7 @@ declare module 'ngrx-domains/State' {
 import { Observable } from 'rxjs/Observable';
 
 import { Query } from 'ngrx-domains';
-import { State, SimpleUserState } from 'ngrx-domains/State';
-import { Queries, Root, setQueries } from 'ngrx-domains/Queries';
+import { State, SimpleUserState, Queries, Root, setQueries } from 'ngrx-domains/State';
 
 export interface SimpleQueries {
   // IN: State.simpleUser -> OUT: State.simpleUser.loggedIn
@@ -309,7 +304,7 @@ setQueries('simpleUser', {
 });
 
 
-declare module 'ngrx-domains/Queries' {
+declare module 'ngrx-domains' {
   // set root query (runtime query auto-generated)
   // so we can store.let(Root.simpleUser); 
   interface Root {
@@ -326,9 +321,7 @@ declare module 'ngrx-domains/Queries' {
 
 ```ts
 import { Action } from '@ngrx/store';
-import { State, SimpleUserState } from 'ngrx-domains/State';
-import { UserActions } from './Actions';
-import { Model } from 'ngrx-domains/Model';
+import { State, SimpleUserState, Model, UserActions } from 'ngrx-domains';
 
 export function reducer(state: SimpleUserState, action: Action): SimpleUserState {
   if (!state) state = State.simpleUser; // State.simpleUser is typed

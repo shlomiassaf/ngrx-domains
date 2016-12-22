@@ -3,8 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { State } from 'ngrx-domains/State'
-import { Actions as ActionMap } from 'ngrx-domains/Actions';
+import { State, Actions as ActionMap } from 'ngrx-domains'
 import { UserActions } from './Actions';
 import { UserService } from './user.service';
 

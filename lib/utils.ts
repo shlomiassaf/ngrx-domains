@@ -1,13 +1,14 @@
 import '@ngrx/core/add/operator/select';
 import { Observable } from 'rxjs/Observable';
 import { compose } from '@ngrx/core/compose';
-import { Query } from './Queries';
 
+export interface Query<TSource, TTarget> {
+  (selector: Observable<TSource>): Observable<TTarget>;
+}
 
 export interface Type<T> {
   new (...args: any[]): T;
 }
-
 
 export function generateQuery(key: string): Query<any, any> {
   return (state$: Observable<any>) => state$.select(state => state[key]);

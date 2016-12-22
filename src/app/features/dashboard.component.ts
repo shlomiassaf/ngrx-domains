@@ -4,9 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-import { State } from 'ngrx-domains/State'
-import { Actions } from 'ngrx-domains/Actions'
-import { Model } from 'ngrx-domains/Model'
+import { State, Actions, Model } from 'ngrx-domains'
 
 
 @Component({
