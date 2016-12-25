@@ -189,6 +189,31 @@ A lot of this boilerplate you would have done anyway.
 > The boilerplate represents Type information, as so it has no effect on the javascript output, i.e
 it has no footprint on the compiled code emitted by TypeScript.
 
+## Lazy domains
+Angular can lazy load modules, infect its a must for all medium sized apps and up.
+It is obvious that we want to define domains inside modules and load them only when required. Since **ngrx-domains** is plugin oriented this is quite easy.
+
+**ngrx-domains** has an observable that emits whenever a new domain is registered, we can subscribe to it and re-create the reducer tree every time a new domain is added.
+
+```
+import { combineReducers } from '@ngrx/store';
+import { getReducers, tableCreated$ } from 'ngrx-domains';
+let reducer;
+
+
+tableCreated$.subscribe( (table: string) => {
+  console.log('Reducer updated');
+  // ngrx-domains returns a reducers map, you can use combineReducers or any other implementation...
+  reducer = combineReducers(getReducers());
+});
+
+// rootReducer exposed as the actual root reducer, it will never change.
+// the inner reducer does.
+export function rootReducer(state: any, action: any) {
+  return reducer(state, action);
+}
+```
+> `tableCreated$` is hooked to a `ReplaySubject`.
 
 ## Example
 In this example we're creating a domain called **simpleUser**, we will separate redux roles by file but the whole **simpleUser** feature will be in one module.  
@@ -344,7 +369,7 @@ export function reducer(state: SimpleUserState, action: Action): SimpleUserState
 >File: index.ts
 
 ```ts
-import { createTable } from 'ngrx-domains';
+import { createDomain } from 'ngrx-domains';
 import './Model';
 import './State';
 import './Actions';
@@ -353,7 +378,7 @@ import './Queries';
 import { reducer } from './reducer';
 
 // publish the reducer
-createTable('simpleUser', reducer);
+createDomain('simpleUser', reducer);
 ```
 
 
