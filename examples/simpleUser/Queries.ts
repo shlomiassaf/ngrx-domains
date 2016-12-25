@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs/Observable';
-
 import { State, SimpleUserState, Query, Queries, Root, setQueries } from 'ngrx-domains';
 
 export interface SimpleQueries {
@@ -9,7 +7,7 @@ export interface SimpleQueries {
 
 
 setQueries('simpleUser', {
-  loggedIn: (state$: Observable<SimpleQueries>) => state$.select(state => state.loggedIn)
+  loggedIn: (state: SimpleQueries) => state.loggedIn
   /* OR:
    loggedIn: <any>false
 

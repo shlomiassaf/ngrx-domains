@@ -34,10 +34,10 @@ export class MyCmpComponent {
   
   
     // root queries (table level)
-    this.user$ = store.let(Root.user)    
+    this.user$ = store.select(Root.user)    
     
     // namespaced queries defined by the domain:
-    this.userName$ = store.let(Queries.user.name)    
+    this.userName$ = store.select(Queries.user.name)    
   }
 
 
@@ -284,8 +284,6 @@ declare module 'ngrx-domains' {
 >File: Queries.ts
 
 ```ts
-import { Observable } from 'rxjs/Observable';
-
 import { Query } from 'ngrx-domains';
 import { State, SimpleUserState, Queries, Root, setQueries } from 'ngrx-domains/State';
 
@@ -296,7 +294,7 @@ export interface SimpleQueries {
 
 
 setQueries('simpleUser', {
-  loggedIn: (state$: Observable<SimpleQueries>) => state$.select(state => state.loggedIn)
+  loggedIn: (state: SimpleQueries) => state.loggedIn
   /* OR:
    loggedIn: <any>false
    
@@ -373,3 +371,5 @@ The demo apps should consume a compiled version of **lib**, this is why there is
  
 ## TODO / DESIGN / THOUGHTS:
   - Use metadata via decorators in addition to `createDomain`?
+  - remove dependency on `ngrx/store` (only using `ActionReducer` interface)
+  - remove dependency on `reselect` (allow user to provide the selector factory)

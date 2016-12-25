@@ -1,8 +1,9 @@
-import { ActionReducer } from '@ngrx/store';
+import { compose } from '@ngrx/core/compose';
+import { ActionReducer, combineReducers } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 
-import { createReducer, tableCreated$, State } from 'ngrx-domains';
+import { getReducers, tableCreated$, State } from 'ngrx-domains';
 import './domains/user';
 import './domains/nav';
 import './domains/router';
@@ -46,8 +47,8 @@ let reducer;
 tableCreated$.subscribe( (table: string) => {
   console.log('Reducer updated');
   reducer = ENV !== 'development'
-    ? createReducer(resetOnLogout)
-    : createReducer(...DEV_REDUCERS, resetOnLogout)
+    ? compose(resetOnLogout, combineReducers)(getReducers())
+    : compose(...DEV_REDUCERS, resetOnLogout, combineReducers)(getReducers())
   ;
 });
 

@@ -1,13 +1,10 @@
-import '@ngrx/core/add/operator/select';
-import { Observable } from 'rxjs/Observable';
-
 import { State, NavSchema, Query, Queries, Root, setQueries } from 'ngrx-domains';
 
 /*
  The root query is auto-generated, unless specified.
  There's no need to set it unless there is some wierd state structure.
  */
-//Root.nav = (state$: Observable<State>) => state$.select(state => state.nav);
+//Root.nav = (state: State) => state.nav;
 
 export interface NavQueries {
   showSidenav: Query<NavSchema, boolean>;
@@ -16,7 +13,7 @@ export interface NavQueries {
 
 
 setQueries('nav', {
-  showSidenav: (state$: Observable<NavSchema>) => state$.select(state => state.toggleState),
+  showSidenav: (state: NavSchema) => state.toggleState,
   sidenavSize: <any>false
 });
 

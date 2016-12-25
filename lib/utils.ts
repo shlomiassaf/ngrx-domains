@@ -1,9 +1,7 @@
-import '@ngrx/core/add/operator/select';
-import { Observable } from 'rxjs/Observable';
-import { compose } from '@ngrx/core/compose';
+import { createSelector } from 'reselect';
 
 export interface Query<TSource, TTarget> {
-  (selector: Observable<TSource>): Observable<TTarget>;
+  (state: TSource): TTarget;
 }
 
 export interface Type<T> {
@@ -11,7 +9,7 @@ export interface Type<T> {
 }
 
 export function generateQuery(key: string): Query<any, any> {
-  return (state$: Observable<any>) => state$.select(state => state[key]);
+  return (state: any) => state[key];
 }
 
 export function safeQuery(query: any, key: string): Query<any, any> {
@@ -24,7 +22,7 @@ export function composeChildQueries<T>(rootFn: any, queries: T): T {
 
   for (let q in queries) {
     if (queries.hasOwnProperty(q)) {
-      compiledQueries[q] = compose(queries[q], rootFn);
+      compiledQueries[q] = createSelector(rootFn, queries[q]);
     }
   }
 

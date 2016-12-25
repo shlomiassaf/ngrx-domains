@@ -1,7 +1,6 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
-import { ActionReducer, combineReducers } from '@ngrx/store';
-import { compose } from '@ngrx/core/compose';
+import { ActionReducer } from '@ngrx/store';
 import { Type, safeQuery, composeChildQueries, Query } from './utils';
 
 export { Type, safeQuery, Query } from './utils';
@@ -42,12 +41,8 @@ export function createDomain(name: string, reducer: ActionReducer<any>): void {
   tableCreatedSubject$.next(name);
 }
 
-export function createReducer(...pre: any[]): ActionReducer<any> {
-  if (pre.length > 0) {
-    return compose(...pre, combineReducers)(reducers);
-  } else {
-    return combineReducers(reducers);
-  }
+export function getReducers(): {[key: string]: ActionReducer<any> } {
+  return Object.assign({}, reducers) as any;
 }
 
 export const tableCreated$: Observable<string> = tableCreatedSubject$.asObservable();
