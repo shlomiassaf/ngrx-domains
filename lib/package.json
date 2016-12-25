@@ -1,6 +1,6 @@
 {
   "name": "ngrx-domains",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "A Global, Type friendly, registry for your **NGRX** logic",
   "author": "Shlomi Assaf <shlomiasaf@gmail.com>",
   "license": "MIT",
@@ -15,6 +15,7 @@
     "ngrx"
   ],
   "peerDependencies": {
+    "reselect": "^2.5.4",
     "@ngrx/store": "^2.2.0"
   },
   "bugs": {
