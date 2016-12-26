@@ -2,11 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es5", "dom"],
+    "lib": ["es6", "dom"],
     "noImplicitAny": false,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./src/ngrx-domains",
+    "outDir": "./node_modules/ngrx-domains",
     "noEmitOnError": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

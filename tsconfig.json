@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "target": "es5",
+    "baseUrl": ".",
+    "declaration": true,
+    "stripInternal": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es5", "dom"],
-    "noEmitHelpers": true,
-    "skipDefaultLibCheck": true,
-    "pretty": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "outDir": "./dist",
+    "rootDir": ".",
     "sourceMap": true,
-    "strictNullChecks": false,
-    "typeRoots": [
-      "node_modules/@types"
+    "inlineSources": true,
+    "lib": ["es2015", "dom"],
+    "target": "es5",
+    "skipLibCheck": true,
+    "types": [
+      "hammerjs"
     ]
   },
   "exclude": [
-    "lib",
-    "node_modules",
-    "src/compiled"
+    "node_modules"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "useWebpackText": true,
-    "forkChecker": true,
-    "useCache": true
-  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }

@@ -383,14 +383,12 @@ createDomain('simpleUser', reducer);
 
 
 ## Development
-This repo needs a good clean up, here's a map for now:
-
 **lib** - Directory holding the `ngrx-domains` library code in TS.
 **src** - A demo app until units tests...
 
 The demo apps should consume a compiled version of **lib**, this is why there is a compilation process for the lib separate from the demo app.
 
-`npm run start` will fire lib compilation + watch and demo app server via webpack. 
+`npm run start` will fire lib compilation + watch and demo app server via angular-cli (`ng serve`). 
 
 **lib** compiles to `src/ngrx-domains`, `src` is a module directory on the demo app so any `import {} from 'ngrx-domains'` will work.
  

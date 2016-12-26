@@ -1,70 +1,102 @@
-/**
- * This module is the entry for your App when NOT using universal.
- *
- * Make sure to use the 3 constant APP_ imports so you don't have to keep
- * track of your root app dependencies here. Only import directly in this file if
- * there is something that is specific to the environment.
- */
-
-import { ApplicationRef, NgModule } from '@angular/core';
+import { NgModule, } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { DBModule } from '@ngrx/db';
+import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MaterialModule } from '@angular/material';
 
-import { Store } from '@ngrx/store';
+import { ComponentsModule } from './components';
 
-import { APP_DECLARATIONS } from './app.declarations';
-import { APP_ENTRY_COMPONENTS } from './app.entry-components';
-import { APP_IMPORTS } from './app.imports';
-import { APP_PROVIDERS } from './app.providers';
+// Direct access to the domain, as long as it's within the module boundaries - no issue.
+// since a module defines it's effects no issue with lazy loading of domains as well.
+import { BookEffects, CollectionEffects } from './domains';
 
-import { AppComponent } from './app.component';
-import { State } from 'ngrx-domains';
+import { BookExistsGuard } from './guards/book-exists';
+
+import { AppComponent } from './containers/app';
+import { FindBookPageComponent } from './containers/find-book-page';
+import { ViewBookPageComponent } from './containers/view-book-page';
+import { SelectedBookPageComponent } from './containers/selected-book-page';
+import { CollectionPageComponent } from './containers/collection-page';
+import { NotFoundPageComponent } from './containers/not-found-page';
+
+import { GoogleBooksService } from './services/google-books';
+
+import { routes } from './routes';
+import { reducer } from './reducers';
+import { schema } from './db';
+
+
 
 @NgModule({
+  imports: [
+    CommonModule,
+    BrowserModule,
+    MaterialModule.forRoot(),
+    ComponentsModule,
+    RouterModule.forRoot(routes, { useHash: true }),
+
+    /**
+     * StoreModule.provideStore is imported once in the root module, accepting a reducer
+     * function or object map of reducer functions. If passed an object of
+     * reducers, combineReducers will be run creating your application
+     * meta-reducer. This returns all providers for an @ngrx/store
+     * based application.
+     */
+    StoreModule.provideStore(reducer),
+
+    /**
+     * @ngrx/router-store keeps router state up-to-date in the store and uses
+     * the store as the single source of truth for the router's state.
+     */
+    RouterStoreModule.connectRouter(),
+
+    /**
+     * Store devtools instrument the store retaining past versions of state
+     * and recalculating new states. This enables powerful time-travel
+     * debugging.
+     *
+     * To use the debugger, install the Redux Devtools extension for either
+     * Chrome or Firefox
+     *
+     * See: https://github.com/zalmoxisus/redux-devtools-extension
+     */
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+
+    /**
+     * EffectsModule.run() sets up the effects class to be initialized
+     * immediately when the application starts.
+     *
+     * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
+     */
+    EffectsModule.run(BookEffects),
+    EffectsModule.run(CollectionEffects),
+
+    /**
+     * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
+     * service available.
+     */
+    DBModule.provideDB(schema),
+  ],
   declarations: [
     AppComponent,
-    APP_DECLARATIONS
+    FindBookPageComponent,
+    SelectedBookPageComponent,
+    ViewBookPageComponent,
+    CollectionPageComponent,
+    NotFoundPageComponent
   ],
-  entryComponents: [APP_ENTRY_COMPONENTS],
-  imports: [
-    APP_IMPORTS,
-    BrowserModule,
-    HttpModule,
+  providers: [
+    BookExistsGuard,
+    GoogleBooksService
   ],
-  bootstrap: [AppComponent],
-  providers: [APP_PROVIDERS]
+  bootstrap: [
+    AppComponent
+  ]
 })
-
-export class AppModule {
-  constructor(public appRef: ApplicationRef,
-    private _store: Store<State>) { }
-
-  hmrOnInit(store) {
-    if (!store || !store.rootState) return;
-
-    // restore state by dispatch a SET_ROOT_STATE action
-    if (store.rootState) {
-      this._store.dispatch({
-        type: 'SET_ROOT_STATE',
-        payload: store.rootState
-      });
-    }
-
-    if ('restoreInputValues' in store) { store.restoreInputValues(); }
-    this.appRef.tick();
-    Object.keys(store).forEach(prop => delete store[prop]);
-  }
-  hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    this._store.take(1).subscribe(s => store.rootState = s);
-    store.disposeOldHosts = createNewHosts(cmpLocation);
-    store.restoreInputValues = createInputTransfer();
-    removeNgStyles();
-  }
-  hmrAfterDestroy(store) {
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
-  }
-}
+export class AppModule { }
