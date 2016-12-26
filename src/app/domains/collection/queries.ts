@@ -1,25 +1,23 @@
-import { State, CollectionState, Query, Queries, Root, setQueries } from 'ngrx-domains';
-
+import { CollectionState, Query, Queries, Root, combineRootFactory } from 'ngrx-domains';
 
 export interface CollectionQueries {
-  getLoaded: Query<CollectionState, boolean>;
-  getLoading: Query<CollectionState, boolean>;
-  getIds: Query<CollectionState, string[]>;
+  getLoaded: Query<boolean>;
+  getLoading: Query<boolean>;
+  getIds: Query<string[]>;
 }
 
-export const getLoaded = (state: CollectionState) => state.loaded;
+/* SEE domains/boks/queries.ts for a detailed explanation */
+const fromRoot = combineRootFactory<CollectionState>('collection');
 
-export const getLoading = (state: CollectionState) => state.loading;
-
-export const getIds = (state: CollectionState) => state.ids;
-
-
-setQueries('collection', { getLoaded, getLoading, getIds });
-
+Queries.collection = {
+  getLoaded: fromRoot( state => state.loaded ),
+  getLoading: fromRoot( state => state.loading ),
+  getIds: fromRoot( state => state.ids )
+};
 
 declare module 'ngrx-domains' {
   interface Root {
-    collection: Query<State, CollectionState>;
+    collection: Query<CollectionState>;
   }
 
   interface Queries {

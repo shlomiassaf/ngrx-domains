@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "build": "ng build --prod",
-    "start": "npm-run-all -p -r \"tsc -- --watch --project tsconfig.lib.json\" \"ng serve\"",
+    "watch:lib": "tsc --watch --project tsconfig.lib.json",
+    "start": "npm-run-all -p -r \"watch:lib\" \"ng serve\"",
     "test": "ng test",
     "tsc": "tsc",
     "ng": "ng"

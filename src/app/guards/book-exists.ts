@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { GoogleBooksService } from '../services/google-books';
-import { State, Query, Queries, Actions } from 'ngrx-domains'
+import { State, Queries, Actions } from 'ngrx-domains'
 
 /**
  * Guards are hooks into the route resolution process, providing an opportunity
@@ -33,19 +33,18 @@ export class BookExistsGuard implements CanActivate {
    * has finished.
    */
   waitForCollectionToLoad(): Observable<boolean> {
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
-    return this.store.select(Queries.collection.getLoaded as Query<any, boolean>)
+    return this.store.select(Queries.collection.getLoaded)
       .filter(loaded => loaded)
       .take(1);
   }
+
 
   /**
    * This method checks if a book with the given ID is already registered
    * in the Store
    */
   hasBookInStore(id: string): Observable<boolean> {
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
-    return this.store.select(Queries.books.getEntities as any)
+    return this.store.select(Queries.books.getEntities)
       .map(entities => !!entities[id])
       .take(1);
   }

@@ -1,18 +1,19 @@
-import { State, LayoutState, Query, Queries, Root, setQueries } from 'ngrx-domains';
+import { LayoutState, Query, Queries, Root, combineRootFactory } from 'ngrx-domains';
 
 export interface LayoutQueries {
-  getShowSidenav: Query<State, boolean>;
+  getShowSidenav: Query<boolean>;
 }
 
-export const getShowSidenav = (state: LayoutState) => state.showSidenav;
+/* SEE domains/boks/queries.ts for a detailed explanation */
+const fromRoot = combineRootFactory<LayoutState>('layout');
 
-
-setQueries('layout', { getShowSidenav });
-
+Queries.layout = {
+  getShowSidenav: fromRoot( state => state.showSidenav )
+};
 
 declare module 'ngrx-domains' {
   interface Root {
-    layout: Query<State, LayoutState>;
+    layout: Query<LayoutState>;
   }
 
   interface Queries {

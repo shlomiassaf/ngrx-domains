@@ -21,9 +21,8 @@ export class SelectedBookPageComponent {
   isSelectedBookInCollection$: Observable<boolean>;
 
   constructor(private store: Store<State>) {
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
-    this.book$ = store.select(Queries.books.getSelected as any);
-    this.isSelectedBookInCollection$ = store.select(Queries.global.isSelectedBookInCollection);
+    this.book$ = store.select(Queries.books.getSelected);
+    this.isSelectedBookInCollection$ = store.select(Queries.VIEWS.isSelectedBookInCollection);
   }
 
   addToCollection(book: Model.Book) {

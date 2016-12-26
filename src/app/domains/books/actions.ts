@@ -51,6 +51,7 @@ export class SelectAction implements Action {
 }
 
 Actions.books = {
+  TYPES: ActionTypes,
   SearchAction,
   SearchCompleteAction,
   LoadAction,
@@ -60,6 +61,7 @@ Actions.books = {
 declare module 'ngrx-domains' {
   interface Actions {
     books: {
+      TYPES: typeof ActionTypes,
       SearchAction: typeof SearchAction;
       SearchCompleteAction: typeof SearchCompleteAction;
       LoadAction: typeof LoadAction;

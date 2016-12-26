@@ -35,7 +35,6 @@ export class AppComponent {
      * tree to the provided selector
      */
     this.showSidenav$ = this.store.select(Queries.layout.getShowSidenav);
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
   }
 
   closeSidenav() {

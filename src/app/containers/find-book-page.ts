@@ -21,11 +21,9 @@ export class FindBookPageComponent {
   loading$: Observable<boolean>;
 
   constructor(private store: Store<State>) {
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
-    this.searchQuery$ = store.select(Queries.search.getQuery as any).take(1);
-    this.books$ = store.select(Queries.global.getSearchResults);
-    // TODO(shlomiassaf): fix sub state issue with store.select and Queries
-    this.loading$ = store.select(Queries.search.getLoading as any);
+    this.searchQuery$ = store.select(Queries.search.getQuery).take(1);
+    this.books$ = store.select(Queries.VIEWS.getSearchResults);
+    this.loading$ = store.select(Queries.search.getLoading);
   }
 
   search(query: string) {

@@ -1,23 +1,26 @@
-import { State, SearchState, Query, Queries, Root, setQueries } from 'ngrx-domains';
-
+import { SearchState, Query, Queries, Root, combineRootFactory } from 'ngrx-domains';
 
 export interface SearchQueries {
-  getIds: Query<SearchState, string[]>;
-  getQuery: Query<SearchState, string>;
-  getLoading: Query<SearchState, boolean>;
+  getIds: Query<string[]>;
+  getQuery: Query<string>;
+  getLoading: Query<boolean>;
 }
-export const getIds = (state: SearchState) => state.ids;
 
-export const getQuery = (state: SearchState) => state.query;
 
-export const getLoading = (state: SearchState) => state.loading;
+/* SEE domains/boks/queries.ts for a detailed explanation */
+const fromRoot = combineRootFactory<SearchState>('search');
 
-setQueries('search', { getIds, getQuery, getLoading });
+
+Queries.search = {
+  getIds: fromRoot(state => state.ids ),
+  getQuery: fromRoot(state => state.query ),
+  getLoading: fromRoot(state => state.loading )
+};
 
 
 declare module 'ngrx-domains' {
   interface Root {
-    search: Query<State, SearchState>;
+    search: Query<SearchState>;
   }
 
   interface Queries {

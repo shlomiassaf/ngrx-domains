@@ -1,9 +1,11 @@
+import { createSelector, Selector } from 'reselect';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { ActionReducer } from '@ngrx/store';
-import { Type, safeQuery, composeChildQueries, Query } from './utils';
 
-export { Type, safeQuery, Query } from './utils';
+const tables = new Map<string, boolean>();
+const reducers: {[key: string]: ActionReducer<any> } = {};
+const tableCreatedSubject$ = new ReplaySubject<string>(1);
 
 export interface Actions {}
 export const Actions: Actions = {} as any;
@@ -22,10 +24,24 @@ export namespace Model {
   const X = 15;
 }
 
+export interface Query<TTarget> {
+  (state: State): TTarget;
+}
 
-const tables = new Map<string, boolean>();
-const reducers: {[key: string]: ActionReducer<any> } = {};
-const tableCreatedSubject$ = new ReplaySubject<string>(1);
+export interface Type<T> {
+  new (...args: any[]): T;
+}
+
+namespace utils {
+  export function generateQuery(key: string): Query<any> {
+    return (state: any) => state[key];
+  }
+}
+
+
+export function safeQuery(query: any, key: string): Query<any> {
+  return typeof query === 'function' ? query : utils.generateQuery(key);
+}
 
 export function createDomain(name: string, reducer: ActionReducer<any>): void {
   if (tables.has(name)) {
@@ -35,8 +51,9 @@ export function createDomain(name: string, reducer: ActionReducer<any>): void {
   tables.set(name, true);
   reducers[name] = reducer;
 
-  Root[name] = safeQuery(Root[name], name);
-  Queries[name] = composeChildQueries(Root[name], Queries[name]);
+  if (!Root[name]) {
+    Root[name] = setRootQuery(name);
+  }
 
   tableCreatedSubject$.next(name);
 }
@@ -47,41 +64,43 @@ export function getReducers(): {[key: string]: ActionReducer<any> } {
 
 export const tableCreated$: Observable<string> = tableCreatedSubject$.asObservable();
 
+/**
+ * Create a factory for creating selectors that relay on a base selector to transform the state.
+ * @param base
+ * @returns {(selector:(state:TState)=>TType)=>Selector<State, TOutput>}
+ */
+export function combineFactory<TState>(base: Query<TState>): <TType>(selector: (state: TState) => TType) => (state: State) => TType  {
+  return <TType>(selector: (state:TState) => TType) => createSelector(base, selector);
+}
 
 /**
- * Sets a query in the domain.
- * If a query is falsy (not set, false, null, etc...) it will be auto-generated using the "name".
- * Auto-generated queries assume that the query name has a matching property name on the domain's state.
- * @param domain
- * @param name
- * @param query
+ * Create a root query for a domain.
+ * By default creates a query that returns an object on the State object referenced by the domain name property.
+ * @param domain The domain name
+ * @param query Optional, a custom query.
+ * @returns {Query<TState>}
  */
-export function setQuery(domain: string, name: string, query?: Query<any, any>): void {
-  let queries = Queries[domain];
-
-  if (!queries) {
-    queries = Queries[domain] = {};
+export function setRootQuery<TState>(domain: string, query?: Query<TState>): Query<TState> {
+  if (Root[domain]) {
+    throw new Error(`A root query for domain "${domain}" is already defined`);
   }
 
-  queries[name] = safeQuery(query, name);
+  const rootQuery: Query<TState> = safeQuery(query, domain);
+  Object.defineProperty(Root, domain, { value: rootQuery });
+  return rootQuery;
 }
 
 /**
- * Set a map of queries in the domain.
- * Each property name on the queries object is the query name.
- * If a query is falsy (not set, false, null, etc...) it will be auto-generated using the "name".
- * Auto-generated queries assume that the query name has a matching property name on the domain's state.
+ * Given a domain, returns a factory for creating queries that except the DOMAIN's state as input.
+ * i.e: the query create expects an object that the root will select.
+ * If the a root selector for the domain does not exist creats is (see setRootQuery).
  * @param domain
- * @param queries
+ * @returns {(selector:(state:TState)=>TType)=>(state:State)=>TType}
  */
-export function setQueries(domain: string, queries: { [key: string]: Query<any, any> } ): void {
-  Object.keys(queries).forEach( key => setQuery(domain, key, queries[key]) );
+export function combineRootFactory<TState>(domain: string): <TType>(selector: (state: TState) => TType) => (state: State) => TType  {
+  const rootFn: Query<TState> = Root[domain] || setRootQuery<TState>(domain);
+  return combineFactory(rootFn);
 }
-// When going TS 2.2 used mapped types so T in setQueries() can be a boolean
-// export type OrBoolean<T> = {
-//   [P in keyof T]: T[P] | boolean;
-// };
-
 
 /**
  * Register a model in the model registry.

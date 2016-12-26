@@ -12,7 +12,7 @@ import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
 import { Actions as DomainActions } from 'ngrx-domains'
-import { ActionTypes, SearchAction } from './actions'
+import { SearchAction } from './actions'
 import { GoogleBooksService } from '../../services/google-books';
 
 
@@ -37,7 +37,7 @@ export class BookEffects {
 
   @Effect()
   search$: Observable<Action> = this.actions$
-    .ofType(ActionTypes.SEARCH)
+    .ofType(DomainActions.books.TYPES.SEARCH)
     .debounceTime(300)
     .map((action: SearchAction) => action.payload)
     .switchMap(query => {
@@ -45,7 +45,7 @@ export class BookEffects {
         return empty();
       }
 
-      const nextSearch$ = this.actions$.ofType(ActionTypes.SEARCH).skip(1);
+      const nextSearch$ = this.actions$.ofType(DomainActions.books.TYPES.SEARCH).skip(1);
 
       return this.googleBooks.searchBooks(query)
         .takeUntil(nextSearch$)

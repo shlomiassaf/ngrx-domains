@@ -18,6 +18,7 @@ export class CloseSidenavAction implements Action {
 
 
 Actions.layout = {
+  TYPES: ActionTypes,
   OpenSidenavAction,
   CloseSidenavAction
 };
@@ -25,6 +26,7 @@ Actions.layout = {
 declare module 'ngrx-domains' {
   interface Actions {
     layout: {
+      TYPES: typeof ActionTypes,
       OpenSidenavAction: typeof OpenSidenavAction;
       CloseSidenavAction: typeof CloseSidenavAction;
     };

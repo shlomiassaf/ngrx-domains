@@ -32,6 +32,6 @@ export class CollectionPageComponent {
   books$: Observable<Model.Book[]>;
 
   constructor(store: Store<State>) {
-    this.books$ = store.select(Queries.global.getBookCollection);
+    this.books$ = store.select(Queries.VIEWS.getBookCollection);
   }
 }

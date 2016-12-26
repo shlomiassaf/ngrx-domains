@@ -81,6 +81,7 @@ export class LoadFailAction implements Action {
 }
 
 Actions.collection = {
+  TYPES: ActionTypes,
   AddBookAction,
   AddBookSuccessAction,
   AddBookFailAction,
@@ -95,6 +96,7 @@ Actions.collection = {
 declare module 'ngrx-domains' {
   interface Actions {
     collection: {
+      TYPES: typeof ActionTypes,
       AddBookAction: typeof AddBookAction;
       AddBookSuccessAction: typeof AddBookSuccessAction;
       AddBookFailAction: typeof AddBookFailAction;
