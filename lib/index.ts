@@ -1,4 +1,4 @@
-import { createSelector, Selector } from 'reselect';
+import { createSelector } from 'reselect';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { ActionReducer } from '@ngrx/store';
