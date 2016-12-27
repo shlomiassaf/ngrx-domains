@@ -52,7 +52,7 @@ export function createDomain(name: string, reducer: ActionReducer<any>): void {
   reducers[name] = reducer;
 
   if (!Root[name]) {
-    Root[name] = setRootQuery(name);
+    setRootQuery(name);
   }
 
   tableCreatedSubject$.next(name);
