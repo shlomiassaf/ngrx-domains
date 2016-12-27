@@ -51,6 +51,12 @@ export class MyCmpComponent {
 
 ## Demo
 See the `src` folder, containing a ported version of [@ngrx/example-app](https://github.com/ngrx/example-app) using `ngrx-domains`
+  
+The `ngrx-domains` version of `@ngrx/example-app` contains a **lazy loading demo** where a domain
+is registered with a lazy-loaded module (stats pages).
+
+See the [demo site](https://shlomiassaf.github.io/ngrx-domains).  
+
 
 ## Alpha release
 This library is in an early stage of development, expect some changes.
