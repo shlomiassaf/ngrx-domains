@@ -21,6 +21,10 @@ export const routes: Routes = [
     component: ViewBookPageComponent
   },
   {
+    path: 'stats',
+    loadChildren: './+lazy-stats/lazy-stats.module#LazyStatsModule'
+  },
+  {
     path: '**',
     component: NotFoundPageComponent
   }

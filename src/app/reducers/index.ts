@@ -1,5 +1,5 @@
 import { ActionReducer } from '@ngrx/store';
-import { State, getReducers } from 'ngrx-domains';
+import { State, getReducers, tableCreated$ } from 'ngrx-domains';
 import { environment } from '../../environments/environment';
 
 /**
@@ -30,16 +30,22 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
 
+let _reducer: ActionReducer<State>;
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(getReducers());
-const productionReducer: ActionReducer<State> = combineReducers(getReducers());
+// Support lazy loading, re-build reducer tree when a new domain is added
+tableCreated$.subscribe( (domain: string) => {
+  console.log('Reducer updated - new domain: ' + domain);
 
-export function reducer(state: any, action: any) {
   if (environment.production) {
-    return productionReducer(state, action);
+    _reducer = combineReducers(getReducers());
   }
   else {
-    return developmentReducer(state, action);
+    _reducer = compose(storeFreeze, combineReducers)(getReducers());
   }
+});
+
+
+export function reducer(state: any, action: any) {
+  return _reducer(state, action);
 }
 

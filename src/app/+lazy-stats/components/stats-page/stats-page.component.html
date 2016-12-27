@@ -1,0 +1,13 @@
+<md-card>
+  <md-card-title>Statistics - Lazy loading domains</md-card-title>
+  <md-card-header>This page loaded asynchronously (lazy loading a module)</md-card-header>
+  <md-card-subtitle>Stats are recorded per session and after the <b>first</b> time this page loads.</md-card-subtitle>
+  <md-card-content>
+    <h1>Search count: {{ searchCount$ | async }}</h1>
+    <h1>Search history:</h1>
+    <md-list>
+      <md-list-item *ngFor="let searchItem of searchHistory$ | async">{{searchItem}}</md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
+

@@ -48,7 +48,10 @@ export class MyCmpComponent {
 
 }
 ```
- 
+
+## Demo
+See the `src` folder, containing a ported version of [@ngrx/example-app](https://github.com/ngrx/example-app) using `ngrx-domains`
+
 ## Alpha release
 This library is in an early stage of development, expect some changes.
 > The `Actions` objects will probably change since `@ngrx/effects` has an `Actions` type.
@@ -310,29 +313,23 @@ declare module 'ngrx-domains' {
 
 ```ts
 import { Query } from 'ngrx-domains';
-import { State, SimpleUserState, Queries, Root, setQueries } from 'ngrx-domains/State';
+import { SimpleUserState, Queries, Root, combineRootFactory } from 'ngrx-domains/State';
 
 export interface SimpleQueries {
   // IN: State.simpleUser -> OUT: State.simpleUser.loggedIn
-  loggedIn: Query<SimpleUserState, boolean>;
+  loggedIn: Query<boolean>;
 }
 
+const fromRoot = combineRootFactory<SimpleUserState>('simpleUser');
 
-setQueries('simpleUser', {
-  loggedIn: (state: SimpleQueries) => state.loggedIn
-  /* OR:
-   loggedIn: <any>false
-   
-   will auto generate a query returning a property from the state with the same name (loggedIn)
-   */
-});
 
+Queries.simpleUser = {
+  loggedIn: fromRoot( state => state.loggedIn )
+};
 
 declare module 'ngrx-domains' {
-  // set root query (runtime query auto-generated)
-  // so we can store.let(Root.simpleUser); 
   interface Root {
-    simpleUser: Query<State, SimpleUserState>;
+    simpleUser: Query<SimpleUserState>;
   }
 
   interface Queries {
@@ -390,7 +387,7 @@ The demo apps should consume a compiled version of **lib**, this is why there is
 
 `npm run start` will fire lib compilation + watch and demo app server via angular-cli (`ng serve`). 
 
-**lib** compiles to `src/ngrx-domains`, `src` is a module directory on the demo app so any `import {} from 'ngrx-domains'` will work.
+**lib** compiles to `node_modules/ngrx-domains`, `src` is a module directory on the demo app so any `import {} from 'ngrx-domains'` will work.
  
 ## TODO / DESIGN / THOUGHTS:
   - Use metadata via decorators in addition to `createDomain`?
