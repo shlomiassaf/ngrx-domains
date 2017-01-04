@@ -19,7 +19,7 @@ Create a dependency free global redux role objects, as you go, per module:
   
 Access redux role objects from a single import:  
 ```ts
-import { Actions, State, Model, Root, Queries } from 'ngrx-domains/State'
+import { Actions, State, Model, Root, Queries } from 'ngrx-domains'
 
 @Component({
   selector: 'my-cmp'
